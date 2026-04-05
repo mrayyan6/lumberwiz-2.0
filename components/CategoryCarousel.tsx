@@ -23,9 +23,9 @@ function getDistanceFromCenter(index: number, activeIndex: number, total: number
 }
 
 function getScale(distance: number) {
-  if (distance <= 0) return 1;
-  if (distance === 1) return 0.6;
-  return 0.4;
+  if (distance <= 0) return 1.15;
+  if (distance === 1) return 0.98;
+  return 0.9;
 }
 
 export default function CategoryCarousel({ items }: CategoryCarouselProps) {
@@ -51,15 +51,15 @@ export default function CategoryCarousel({ items }: CategoryCarouselProps) {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="mt-10 [perspective:1400px]"
+      className="mt-10 overflow-x-hidden [perspective:1400px]"
     >
       <Swiper
         modules={[EffectCoverflow, Mousewheel, A11y]}
         effect="coverflow"
         centeredSlides={true}
         centeredSlidesBounds
-        slidesPerView={1.2}
-        spaceBetween={14}
+        slidesPerView={3}
+        spaceBetween={17}
         speed={700}
         loop={true}
         loopAdditionalSlides={5}
@@ -76,14 +76,14 @@ export default function CategoryCarousel({ items }: CategoryCarouselProps) {
           slideShadows: false,
         }}
         breakpoints={{
-          640: { slidesPerView: 1.6, spaceBetween: 18 },
-          768: { slidesPerView: 2.1, spaceBetween: 20 },
-          1024: { slidesPerView: 2.8, spaceBetween: 22 },
-          1280: { slidesPerView: 3.4, spaceBetween: 24 },
+          640: { slidesPerView: 5, spaceBetween: 20 },
+          768: { slidesPerView: 5, spaceBetween: 20 },
+          1024: { slidesPerView: 5, spaceBetween: 20 },
+          1280: { slidesPerView: 5, spaceBetween: 20 },
         }}
         onSwiper={(swiper) => setActiveRealIndex(items.length ? swiper.realIndex % items.length : 0)}
         onSlideChange={(swiper) => setActiveRealIndex(items.length ? swiper.realIndex % items.length : 0)}
-        className="!overflow-visible px-1 py-4 sm:px-4"
+        className="!overflow-hidden [touch-action:pan-y] px-1 py-4 sm:px-4"
       >
         {loopedItems.map((item, index) => {
           const realIndex = items.length ? index % items.length : 0;
@@ -96,8 +96,8 @@ export default function CategoryCarousel({ items }: CategoryCarouselProps) {
               <motion.div
                 animate={{
                   scale,
-                  opacity: isCenter ? 1 : distance === 1 ? 0.72 : 0.48,
-                  y: isCenter ? 0 : distance === 1 ? 14 : 24,
+                  opacity: isCenter ? 1 : distance === 1 ? 0.86 : 0.72,
+                  y: isCenter ? 0 : distance === 1 ? 8 : 14,
                 }}
                 transition={{
                   type: "spring",
