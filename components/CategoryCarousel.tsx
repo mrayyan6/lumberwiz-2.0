@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { A11y, EffectCoverflow, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -28,7 +29,21 @@ function getScale(distance: number) {
 }
 
 export default function CategoryCarousel({ items }: CategoryCarouselProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const router = useRouter();
+  const [activeRealIndex, setActiveRealIndex] = useState(0);
+  const loopedItems = [...items, ...items, ...items];
+
+  const handleSlideClick = (event: React.MouseEvent<HTMLAnchorElement>, realIndex: number) => {
+    if (realIndex !== activeRealIndex) {
+      event.preventDefault();
+      return;
+    }
+
+    event.preventDefault();
+    const item = items[realIndex];
+    if (!item) return;
+    router.push(`/category/${encodeURIComponent(item.name)}`);
+  };
 
   return (
     <motion.div
@@ -41,12 +56,13 @@ export default function CategoryCarousel({ items }: CategoryCarouselProps) {
       <Swiper
         modules={[EffectCoverflow, Mousewheel, A11y]}
         effect="coverflow"
-        centeredSlides
+        centeredSlides={true}
         centeredSlidesBounds
         slidesPerView={1.2}
         spaceBetween={14}
         speed={700}
-        loop
+        loop={true}
+        loopAdditionalSlides={5}
         watchSlidesProgress
         slideToClickedSlide
         grabCursor
@@ -65,17 +81,18 @@ export default function CategoryCarousel({ items }: CategoryCarouselProps) {
           1024: { slidesPerView: 2.8, spaceBetween: 22 },
           1280: { slidesPerView: 3.4, spaceBetween: 24 },
         }}
-        onSwiper={(swiper) => setActiveIndex(swiper.realIndex)}
-        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+        onSwiper={(swiper) => setActiveRealIndex(items.length ? swiper.realIndex % items.length : 0)}
+        onSlideChange={(swiper) => setActiveRealIndex(items.length ? swiper.realIndex % items.length : 0)}
         className="!overflow-visible px-1 py-4 sm:px-4"
       >
-        {items.map((item, index) => {
-          const distance = getDistanceFromCenter(index, activeIndex, items.length);
+        {loopedItems.map((item, index) => {
+          const realIndex = items.length ? index % items.length : 0;
+          const distance = getDistanceFromCenter(realIndex, activeRealIndex, items.length);
           const scale = getScale(distance);
           const isCenter = distance === 0;
 
           return (
-            <SwiperSlide key={item.name} className="!h-auto">
+            <SwiperSlide key={`${item.name}-${index}`} className="!h-auto">
               <motion.div
                 animate={{
                   scale,
@@ -96,6 +113,7 @@ export default function CategoryCarousel({ items }: CategoryCarouselProps) {
               >
                 <Link
                   href={`/category/${encodeURIComponent(item.name)}`}
+                  onClick={(event) => handleSlideClick(event, realIndex)}
                   className="group relative block aspect-[5/4] overflow-hidden rounded-2xl border border-white/20 bg-black/20 shadow-[0_22px_50px_-28px_rgba(0,0,0,0.7)] backdrop-blur-sm transition-all duration-500"
                 >
                   <img
