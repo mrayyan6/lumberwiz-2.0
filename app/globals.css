@@ -52,6 +52,10 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Raleway', sans-serif;
@@ -60,4 +64,30 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
   }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.45);
+  }
+}
+
+/* Swiper pagination – brand colors */
+.swiper-pagination-bullet {
+  background: hsl(var(--muted-foreground)) !important;
+  opacity: 0.45 !important;
+  transition: opacity 0.2s, background 0.2s !important;
+}
+.swiper-pagination-bullet-active {
+  background: hsl(var(--primary)) !important;
+  opacity: 1 !important;
 }
