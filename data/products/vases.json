@@ -1,0 +1,226 @@
+[
+  {
+    "id": "VA-CL-NB-001",
+    "name": "Noir Bloom Vase",
+    "original_filename": "Vase (1).jpeg",
+    "image_path": "/images/Vase (1).jpeg",
+    "description": "Elevate your space with this exquisitely hand-crafted floral vase, a timeless piece of art for any home.",
+    "technical_specs": { "height": "29\"" }
+  },
+  {
+    "id": "VA-CL-ZS-002",
+    "name": "Zebra Stripe Vase",
+    "original_filename": "Vase (2).jpeg",
+    "image_path": "/images/Vase (2).jpeg",
+    "description": "A striking statement piece, blending modern aesthetics with classic appeal.",
+    "technical_specs": { "height": "15\"" }
+  },
+  {
+    "id": "VA-CL-LL-003",
+    "name": "Leaf & Line Vase",
+    "original_filename": "Vase (3).jpeg",
+    "image_path": "/images/Vase (3).jpeg",
+    "description": "A symphony of texture and color, the Leaf & Line Vase is more than decor — it's a statement piece that speaks of refined taste.",
+    "technical_specs": { "height": "28\"" }
+  },
+  {
+    "id": "VA-CL-RB-004",
+    "name": "Royal Bloom Vase",
+    "original_filename": "Vase (4).jpeg",
+    "image_path": "/images/Vase (4).jpeg",
+    "description": "Handcrafted perfection for a truly distinctive statement.",
+    "technical_specs": { "height": "30.1\"" }
+  },
+  {
+    "id": "VA-CL-EE-005",
+    "name": "Earthen Elegance Vase",
+    "original_filename": "Vase (5).jpeg",
+    "image_path": "/images/Vase (5).jpeg",
+    "description": "This exquisite handmade clay vase features intricate geometric patterns, blending traditional artistry with modern elegance to bring a touch of serene beauty to any space.",
+    "technical_specs": { "height": "15.5\"" }
+  },
+  {
+    "id": "VA-CL-CB-006",
+    "name": "Confetti Bloom Vase",
+    "original_filename": "Vase (6).jpeg",
+    "image_path": "/images/Vase (6).jpeg",
+    "description": "This distinctive clay vase features a vibrant, textured surface adorned with a mosaic of yellow, blue, and black brushstrokes, adding a touch of modern artistry to any space.",
+    "technical_specs": { "height": "21.3\"" }
+  },
+  {
+    "id": "VA-CL-EE-007",
+    "name": "Earthen Mosaic Vase",
+    "original_filename": "Vase (7).jpeg",
+    "image_path": "/images/Vase (7).jpeg",
+    "description": "This exquisite handmade clay vase features intricate geometric patterns, blending traditional artistry with modern elegance to bring a touch of serene beauty to any space.",
+    "technical_specs": { "height": "15.4\"" }
+  },
+  {
+    "id": "VA-CL-AH-008",
+    "name": "Abstract Horizon Vase",
+    "original_filename": "Vase (8).jpeg",
+    "image_path": "/images/Vase (8).jpeg",
+    "description": "This modern clay vase features a striking abstract design, combining bold blocks of blue, black, yellow, and cream in a sleek, elongated form that adds a contemporary artistic touch.",
+    "technical_specs": { "height": "16.4\"" }
+  },
+  {
+    "id": "VA-CL-EB-009",
+    "name": "Ember Bloom Vase",
+    "original_filename": "Vase (9).jpeg",
+    "image_path": "/images/Vase (9).jpeg",
+    "description": "Adorn your space with the exquisite Ember Bloom vase, a handcrafted clay vase featuring intricate leaf-inspired cutouts that cast captivating shadows and bring a touch of nature's elegance indoors.",
+    "technical_specs": { "height": "21.1\"" }
+  },
+  {
+    "id": "VA-CL-TS-010",
+    "name": "The Serene Form",
+    "original_filename": "Vase (10).jpeg",
+    "image_path": "/images/Vase (10).jpeg",
+    "description": "Add a touch of timeless elegance to any space with our beautifully crafted clay vase, featuring a distinct ridged texture and a warm, inviting finish.",
+    "technical_specs": { "height": "18.5\"" }
+  },
+  {
+    "id": "VA-CL-MC-011",
+    "name": "The Mosaic Column",
+    "original_filename": "Vase (11).jpeg",
+    "image_path": "/images/Vase (11).jpeg",
+    "description": "Elevate your space with this exquisite handmade clay vase. Its unique textured finish, featuring a captivating blend of blue, grey, and earthy tones, creates a striking visual mosaic. Each piece is a testament to artisanal craftsmanship, offering a one-of-a-kind decorative accent that brings a touch of handcrafted elegance to any home or office.",
+    "technical_specs": { "height": "25.8\"" }
+  },
+  {
+    "id": "VA-CL-OS-012",
+    "name": "Onyx Spire",
+    "original_filename": "Vase (12).jpeg",
+    "image_path": "/images/Vase (12).jpeg",
+    "description": "A stunning piece of modern artistry for your home. This handmade clay vase is a testament to the beauty of contrast, featuring a bold, textured black finish that meets a smooth, natural-hued section. Its elegant, asymmetric design and geometric accents make it a captivating focal point in any room.",
+    "technical_specs": { "height": "33\"" }
+  },
+  {
+    "id": "VA-CL-EV-013",
+    "name": "The Ember Vase",
+    "original_filename": "Vase (13).jpeg",
+    "image_path": "/images/Vase (13).jpeg",
+    "description": "Handcrafted with the warmth of the earth, this Ember Vase is a testament to the beauty of artisanal design. Its unique, multitextured surface tells a story of creation, from the speckled, stone-like neck to the delicate, patterned base. Perfect as a standalone statement piece or for showcasing a single stem, the Ember Vase brings a touch of modern elegance and timeless craftsmanship to any space.",
+    "technical_specs": { "height": "25.8\"" }
+  },
+  {
+    "id": "VA-CL-CV-014",
+    "name": "The Coral Vine Vessel",
+    "original_filename": "Vase (14).jpeg",
+    "image_path": "/images/Vase (14).jpeg",
+    "description": "Experience the fusion of nature's elegance and artisanal craftsmanship with this stunning vase. Hand-carved details in deep blue and vibrant coral create a beautiful, three-dimensional floral display.",
+    "technical_specs": { "height": "25.9\"" }
+  },
+  {
+    "id": "VA-CL-AG-015",
+    "name": "The Autumn Glow Vase",
+    "original_filename": "Vase (15).jpeg",
+    "image_path": "/images/Vase (15).jpeg",
+    "description": "This piece beautifully contrasts dark with warm, natural wood-like finish featuring an intricate leaf pattern.",
+    "technical_specs": { "height": "19.5\"" }
+  },
+  {
+    "id": "VA-CL-BV-016",
+    "name": "The Blossom Vase",
+    "original_filename": "Vase (16).jpeg",
+    "image_path": "/images/Vase (16).jpeg",
+    "description": "Bring the delicate beauty of nature indoors with this intricately carved clay vase, a stunning centerpiece for any decor.",
+    "technical_specs": { "height": "21.1\"" }
+  },
+  {
+    "id": "VA-CL-MM-017",
+    "name": "Maple Memory",
+    "original_filename": "Vase (17).jpeg",
+    "image_path": "/images/Vase (17).jpeg",
+    "description": "Capture the vibrant warmth of autumn wherever you go with this beautifully designed vase with digital print.",
+    "technical_specs": { "height": "15.5\"" }
+  },
+  {
+    "id": "VA-CL-ER-018",
+    "name": "The Earthen Relic Vase",
+    "original_filename": "Vase (18).jpeg",
+    "image_path": "/images/Vase (18).jpeg",
+    "description": "This unique handcrafted vessel captures the raw, powerful beauty of natural textures, bringing ancient, organic elegance to any modern space.",
+    "technical_specs": { "height": "18\"" }
+  },
+  {
+    "id": "VA-CL-MG-019",
+    "name": "Mushroom Glow Vessel",
+    "original_filename": "Vase (19).jpeg",
+    "image_path": "/images/Vase (19).jpeg",
+    "description": "Illuminate any space with the captivating Mushroom Glow Vessel, an artistic fusion of dark elegance and vibrant mushrooms.",
+    "technical_specs": { "height": "18\"" }
+  },
+  {
+    "id": "VA-CL-CS-020",
+    "name": "Cello Serenade Vase",
+    "original_filename": "Vase (20).jpeg",
+    "image_path": "/images/Vase (20).jpeg",
+    "description": "Bring timeless elegance and the soulful melody of the cello into any space with this beautifully crafted, unique decorative piece.",
+    "technical_specs": { "height": "15.5\"" }
+  },
+  {
+    "id": "VA-CL-SV-021",
+    "name": "Skyward Vase",
+    "original_filename": "Vase (21).jpeg",
+    "image_path": "/images/Vase (21).jpeg",
+    "description": "Elevate your space with this unique art piece capturing the serene beauty of a hot air balloon's tranquil ascent over a painted horizon.",
+    "technical_specs": { "height": "18\"" }
+  },
+  {
+    "id": "VA-CL-BV-022",
+    "name": "The Beacon Vase",
+    "original_filename": "Vase (22).jpeg",
+    "image_path": "/images/Vase (22).jpeg",
+    "description": "Illuminate your space with the serene beauty of the sea, captured in this unique, hand-painted mixed with digitally painted coastal beacon.",
+    "technical_specs": {}
+  },
+  {
+    "id": "VA-CL-RR-023",
+    "name": "Rumi's Rhythm Vase",
+    "original_filename": "Vase (23).jpeg",
+    "image_path": "/images/Vase (23).jpeg",
+    "description": "Embrace the mystical rhythm of the cosmos with this beautifully crafted vessel, capturing the timeless elegance of the whirling dervish. Also available in Oxford Navy.",
+    "technical_specs": { "height": "18\"" }
+  },
+  {
+    "id": "VA-CL-TL-024",
+    "name": "Teal Lava Vessel",
+    "original_filename": "Vase (24).jpeg",
+    "image_path": "/images/Vase (24).jpeg",
+    "description": "Elevate any space with this stunning vase, featuring a distinctive green lava glaze.",
+    "technical_specs": { "height": "18\"" }
+  },
+  {
+    "id": "VA-CL-PS-025",
+    "name": "The Pebble Stripe",
+    "original_filename": "Vase (25).jpeg",
+    "image_path": "/images/Vase (25).jpeg",
+    "description": "Elevate any space with the striking masterpiece of modern design featuring a captivating blend of bold stripes and organic textures.",
+    "technical_specs": { "height": "18\"" }
+  },
+  {
+    "id": "VA-CL-MC-026",
+    "name": "The Monochrome Curve",
+    "original_filename": "Vase (26).jpeg",
+    "image_path": "/images/Vase (26).jpeg",
+    "description": "The Monochrome Curve — where bold, contrasting lines meet a sleek, elegant silhouette for a truly modern statement piece.",
+    "technical_specs": { "height": "31.5\"" }
+  },
+  {
+    "id": "VA-CL-SB-027",
+    "name": "Sunburst Pot",
+    "original_filename": "Vase.jpeg",
+    "image_path": "/images/Vase.jpeg",
+    "description": "Bring a touch of retro charm and a pop of sunshine to any space with this unique, hand-painted vessel, perfect for your favorite plant or as a standalone decorative piece.",
+    "technical_specs": { "height": "11\"" }
+  },
+  {
+    "id": "VA-CL-BB-028",
+    "name": "Butterfly Bloom",
+    "original_filename": null,
+    "image_path": null,
+    "description": "Adorn any space with this exquisite, hand-painted vessel featuring the vibrant, detailed wings of a Silver Washed Fritillary butterfly.",
+    "technical_specs": { "height": "11\"" }
+  }
+]

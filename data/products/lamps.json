@@ -1,0 +1,26 @@
+[
+  {
+    "id": "LA-CL-EG-001",
+    "name": "Ebony Glow",
+    "original_filename": "Lamps (1).jpeg",
+    "image_path": "/images/Lamps (1).jpeg",
+    "description": "This stylish table lamp features a dark, tapered base with a metallic accent at the bottom and is topped with a classic, light-colored drum shade providing a warm and inviting glow.",
+    "technical_specs": { "height": "25.8\"" }
+  },
+  {
+    "id": "LA-CL-GW-002",
+    "name": "Glowweave Lamp",
+    "original_filename": "Lamps (2).jpeg",
+    "image_path": "/images/Lamps (2).jpeg",
+    "description": "Illuminate your space with the warm, intricate glow of our handcrafted Glowweave Lamp, a testament to artisan craftsmanship and timeless design.",
+    "technical_specs": { "height": "15.8\"" }
+  },
+  {
+    "id": "LA-CL-TL-003",
+    "name": "Terra Lumina",
+    "original_filename": "Lamps (3).jpeg",
+    "image_path": "/images/Lamps (3).jpeg",
+    "description": "Illuminate your space with the warm, inviting glow of our handcrafted clay lamp, a timeless piece designed to bring natural beauty and serene ambiance to any setting.",
+    "technical_specs": { "height": "16.5\"" }
+  }
+]

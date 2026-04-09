@@ -1,15 +1,19 @@
 "use client";
 
+import { useState } from "react";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import ProductCard from "@/components/ProductCard";
-import { getProductsByCategory } from "@/data/products";
+import ProductModal from "@/components/ProductModal";
+import { Product, getProductsByCategory } from "@/data/products";
 
 export default function CategoryPage() {
   const params = useParams<{ name?: string | string[] }>();
   const rawName = Array.isArray(params?.name) ? params.name[0] : params?.name;
   const category = decodeURIComponent(rawName || "");
   const products = getProductsByCategory(category);
+
+  const [selected, setSelected] = useState<Product | null>(null);
 
   return (
     <div>
@@ -52,11 +56,18 @@ export default function CategoryPage() {
             className="grid gap-5 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
           >
             {products.map((product, i) => (
-              <ProductCard key={product.id} product={product} index={i} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                index={i}
+                onCardClick={setSelected}
+              />
             ))}
           </motion.div>
         )}
       </div>
+
+      <ProductModal product={selected} onClose={() => setSelected(null)} />
     </div>
   );
 }

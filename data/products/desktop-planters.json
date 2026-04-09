@@ -1,0 +1,170 @@
+[
+  {
+    "id": "DT-CL-SV-001",
+    "name": "The Segmented Vase",
+    "original_filename": "Desktop Planter (1).jpeg",
+    "image_path": "/images/Desktop Planter (1).jpeg",
+    "description": "This unique vase features a bold, circular design with striking bands.",
+    "technical_specs": { "height": "10.5\"" }
+  },
+  {
+    "id": "DT-CL-OV-002",
+    "name": "The Orbit Vase",
+    "original_filename": "Desktop Planter (2).jpeg",
+    "image_path": "/images/Desktop Planter (2).jpeg",
+    "description": "Add a touch of modern elegance to your space with the Orbit Vase.",
+    "technical_specs": { "height": "10.5\"" }
+  },
+  {
+    "id": "DT-CL-DD-003",
+    "name": "Donut Drizzle",
+    "original_filename": null,
+    "image_path": null,
+    "description": "A modern, ring-shaped vase featuring a textured pattern, creating a unique artistic statement.",
+    "technical_specs": { "height": "10.5\"" }
+  },
+  {
+    "id": "DT-CL-SV-004",
+    "name": "Olive Bloom Pot",
+    "original_filename": "Desktop Planter (4).jpeg",
+    "image_path": "/images/Desktop Planter (4).jpeg",
+    "description": "A subtly textured, speckled surface, creating a stylish and versatile decorative piece.",
+    "technical_specs": { "height": "10.5\"" }
+  },
+  {
+    "id": "DT-CL-PP-005",
+    "name": "Peter Planter",
+    "original_filename": "Desktop Planter (5).jpeg",
+    "image_path": "/images/Desktop Planter (5).jpeg",
+    "description": "Add a touch of whimsy to your workspace or home with this charming turtle-shaped planter, perfect for housing your favorite small succulent or plant.",
+    "technical_specs": {}
+  },
+  {
+    "id": "DT-CL-GH-006",
+    "name": "The Gilded Halo",
+    "original_filename": "Desktop Planter (6).jpeg",
+    "image_path": "/images/Desktop Planter (6).jpeg",
+    "description": "Elevate any space with the unique, circular design of this eye-catching vase, featuring elegant gilded accents and a delicate botanical motif.",
+    "technical_specs": { "height": "10.5\"" }
+  },
+  {
+    "id": "DT-CL-AR-007",
+    "name": "The Aegean Ring",
+    "original_filename": "Desktop Planter (7).jpeg",
+    "image_path": "/images/Desktop Planter (7).jpeg",
+    "description": "Elevate any space with the bold, contemporary design of the Aegean Ring, a stunning fusion of unique form and captivating texture.",
+    "technical_specs": { "height": "10.5\"" }
+  },
+  {
+    "id": "DT-CL-DD-008",
+    "name": "The Lunar Orbit",
+    "original_filename": "Desktop Planter (8).jpeg",
+    "image_path": "/images/Desktop Planter (8).jpeg",
+    "description": "This unique, hand-finished vase adds a touch of modern artistry and elegance to any space, perfect as a standalone showpiece or for displaying dried botanicals.",
+    "technical_specs": { "height": "10.5\"" }
+  },
+  {
+    "id": "DT-CL-AH-009",
+    "name": "Azure Halo",
+    "original_filename": "Desktop Planter (9).jpeg",
+    "image_path": "/images/Desktop Planter (9).jpeg",
+    "description": "This unique, contemporary design of the Azure Halo vase is a perfect blend of form and artistic function.",
+    "technical_specs": { "height": "10.5\"" }
+  },
+  {
+    "id": "DT-CL-MP-010",
+    "name": "The Mod Planter",
+    "original_filename": "Desktop Planter (10).jpeg",
+    "image_path": "/images/Desktop Planter (10).jpeg",
+    "description": "Add a splash of retro charm and vibrant color to any space with this uniquely hand-painted planter, perfect for showcasing your favorite greenery.",
+    "technical_specs": { "height": "5\"" }
+  },
+  {
+    "id": "DT-CL-AA-011",
+    "name": "Aqua Aura",
+    "original_filename": "Desktop Planter (11).jpeg",
+    "image_path": "/images/Desktop Planter (11).jpeg",
+    "description": "Bring a touch of the ocean's gilded shimmer into any space with this unique, hand-painted decorative orb.",
+    "technical_specs": { "height": "6\"" }
+  },
+  {
+    "id": "DT-CL-VG-012",
+    "name": "Verdant Gold Vessel",
+    "original_filename": "Desktop Planter (12).jpeg",
+    "image_path": "/images/Desktop Planter (12).jpeg",
+    "description": "A stunning piece of artisan craftsmanship featuring a shimmering gilded leaf pattern on a deep rich background.",
+    "technical_specs": { "height": "6\"" }
+  },
+  {
+    "id": "DT-CL-GG-013",
+    "name": "Gilded Globe",
+    "original_filename": null,
+    "image_path": null,
+    "description": "Add a splash of vibrant, modern artistry to any space with this unique, hand-painted orb.",
+    "technical_specs": { "height": "6\"" }
+  },
+  {
+    "id": "DT-CL-RS-014",
+    "name": "Rustic Sun Pot",
+    "original_filename": null,
+    "image_path": null,
+    "description": "Add a touch of aged elegance to any space with the Rustic Sun Pot, a uniquely textured orb designed to make your greenery shine.",
+    "technical_specs": { "height": "6\"" }
+  },
+  {
+    "id": "DT-CL-CU-015",
+    "name": "Cosmic Urn",
+    "original_filename": null,
+    "image_path": null,
+    "description": "Embrace the celestial charm of a handcrafted piece where deep obsidian meets shimmering gold, bringing a touch of cosmic elegance to any space.",
+    "technical_specs": { "height": "6\"" }
+  },
+  {
+    "id": "DT-CL-BP-016",
+    "name": "Bubble Pot",
+    "original_filename": null,
+    "image_path": null,
+    "description": "Add a splash of vibrant, tactile artistry to any space with our unique, handcrafted Bubble Pot, designed to bring modern texture and color to your favorite greenery.",
+    "technical_specs": { "height": "6\"" }
+  },
+  {
+    "id": "DT-CL-IB-017",
+    "name": "Ignis Bowl",
+    "original_filename": null,
+    "image_path": null,
+    "description": "Pure bowl forms that glow with a captivating interplay of light and dark, this unique piece embodies a charred, stratified beauty created through meticulous layering.",
+    "technical_specs": { "height": "6\"" }
+  },
+  {
+    "id": "DT-CL-RS-018",
+    "name": "Obsidian Bloom",
+    "original_filename": null,
+    "image_path": null,
+    "description": "Embrace the fusion of retro charm and artistic beauty with this exquisite vessel, featuring an unpredictable, fine and timeless black and teal glaze.",
+    "technical_specs": { "height": "6\"" }
+  },
+  {
+    "id": "DT-CL-EB-019",
+    "name": "Eclipse Bowl",
+    "original_filename": null,
+    "image_path": null,
+    "description": "Elevate any desktop with striking contrast and timeless design. Also available in caviar color.",
+    "technical_specs": { "height": "4.2\"", "width": "9.5\"" }
+  },
+  {
+    "id": "DT-CL-TT-020",
+    "name": "Tiki Totem Vase",
+    "original_filename": null,
+    "image_path": null,
+    "description": "Bring a touch of mystique and vibrant design into any space with this unique, hand-crafted piece.",
+    "technical_specs": { "height": "10\"" }
+  },
+  {
+    "id": "DT-CL-AL-021",
+    "name": "Aqua Lattice",
+    "original_filename": null,
+    "image_path": null,
+    "description": "Bring a touch of vintage charm and breathable style to any tabletop or wall with this beautifully crafted planter.",
+    "technical_specs": { "height": "5.8\"" }
+  }
+]

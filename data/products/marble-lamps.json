@@ -1,0 +1,18 @@
+[
+  {
+    "id": "TT-MR-TE-001",
+    "name": "Travertine Elegance",
+    "original_filename": "Marble Lamp.jpeg",
+    "image_path": "/images/Marble Lamp.jpeg",
+    "description": "Experience the epitome of elegance with the Travertine Marble lamp, a stunning piece that combines the timeless charm of original marble and brass border for high glamour.",
+    "technical_specs": { "height": "25.6\"" }
+  },
+  {
+    "id": "TT-MR-ZW-002",
+    "name": "Ziarat White",
+    "original_filename": null,
+    "image_path": null,
+    "description": "This chic marble table lamp combines a genuine Ziarat White marble base with an antiquated brass finish to add a touch of sophisticated, contemporary style to any interior.",
+    "technical_specs": { "height": "25.6\"" }
+  }
+]

@@ -6,7 +6,15 @@ import { ShoppingCart } from "lucide-react";
 import { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 
-export default function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
+export default function ProductCard({
+  product,
+  index = 0,
+  onCardClick,
+}: {
+  product: Product;
+  index?: number;
+  onCardClick?: (product: Product) => void;
+}) {
   const { addToCart } = useCart();
   const [imgError, setImgError] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -37,8 +45,9 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
       transition={{ duration: 0.4, delay: index * 0.05 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onClick={() => onCardClick?.(product)}
       style={{ rotateX, rotateY, transformPerspective: 800 }}
-      className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-xl"
+      className="group relative cursor-pointer overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-xl"
     >
       <div className="relative aspect-square overflow-hidden">
         <img
@@ -52,7 +61,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
 
         {/* Add to cart button */}
         <motion.button
-          onClick={() => addToCart(product)}
+          onClick={(e) => { e.stopPropagation(); addToCart(product); }}
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.9 }}
           className="absolute bottom-3 right-3 rounded-full bg-primary p-2.5 text-primary-foreground opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100"

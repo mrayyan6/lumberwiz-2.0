@@ -1,0 +1,122 @@
+[
+  {
+    "id": "PL-CL-GG-001",
+    "name": "GeoGrid Terracotta Planter",
+    "original_filename": "Planter (1).jpeg",
+    "image_path": "/images/Planter (1).jpeg",
+    "description": "A stylish and versatile planter featuring a distinctive geometric pattern, perfect for enhancing any indoor or outdoor space.",
+    "technical_specs": { "height": "21.2\"" }
+  },
+  {
+    "id": "PL-CL-CL-002",
+    "name": "Cerulean Blue Bowl",
+    "original_filename": "Planter (2).jpeg",
+    "image_path": "/images/Planter (2).jpeg",
+    "description": "This elegant cerulean blue bowl, adorned with delicate leaf accents, adds a touch of nature-inspired sophistication to any space.",
+    "technical_specs": { "height": "9.2\"" }
+  },
+  {
+    "id": "PL-CL-WB-003",
+    "name": "Wave Bowl",
+    "original_filename": "Planter (3).jpeg",
+    "image_path": "/images/Planter (3).jpeg",
+    "description": "This piece captures the dynamic energy of white capped waves crashing against a deep blue sea, bringing a touch of artisanal elegance.",
+    "technical_specs": { "height": "7.5\"" }
+  },
+  {
+    "id": "PL-CL-AF-004",
+    "name": "Arctic Frost",
+    "original_filename": "Planter (4).jpeg",
+    "image_path": "/images/Planter (4).jpeg",
+    "description": "This elegant clay vessel features a smooth, spherical form adorned with striking two-tone design, creating a visually appealing contrast.",
+    "technical_specs": { "height": "9.2\"" }
+  },
+  {
+    "id": "PL-CL-GL-005",
+    "name": "Gilded Leaf",
+    "original_filename": "Planter (5).jpeg",
+    "image_path": "/images/Planter (5).jpeg",
+    "description": "Elegant pearl white leaf inlays that capture a blend of modern sophistication and natural beauty.",
+    "technical_specs": { "height": "6.8\"", "width": "13.8\"" }
+  },
+  {
+    "id": "PL-CL-GG-006",
+    "name": "GeoGrid Terracotta Planter II",
+    "original_filename": "Planter (6).jpeg",
+    "image_path": "/images/Planter (6).jpeg",
+    "description": "A stylish and versatile planter featuring a distinctive geometric pattern, perfect for enhancing any indoor or outdoor space.",
+    "technical_specs": { "height": "21.2\"" }
+  },
+  {
+    "id": "PL-CL-MM-007",
+    "name": "Modern Metallic Planter",
+    "original_filename": "Planter (7).jpeg",
+    "image_path": "/images/Planter (7).jpeg",
+    "description": "Featuring a striking metallic gradation from silver to black with a bold antique gold accent, brings a touch of modern elegance.",
+    "technical_specs": { "height": "6\"", "width": "11.2\"" }
+  },
+  {
+    "id": "PL-CL-AB-008",
+    "name": "Aqua Bloom",
+    "original_filename": "Planter (8).jpeg",
+    "image_path": "/images/Planter (8).jpeg",
+    "description": "Add a touch of handcrafted charm and artistic flair to your space with the uniquely designed Aqua Bloom planter.",
+    "technical_specs": { "height": "8\"" }
+  },
+  {
+    "id": "PL-CL-OB-009",
+    "name": "Odyssey Bowl",
+    "original_filename": "Planter (9).jpeg",
+    "image_path": "/images/Planter (9).jpeg",
+    "description": "Embrace timeless elegance with the Odyssey Bowl, a hand-finished piece that brings a touch of ancient, textured beauty to any space.",
+    "technical_specs": { "height": "13\"", "width": "13.8\"" }
+  },
+  {
+    "id": "PL-CL-VE-010",
+    "name": "Volcanic Ember",
+    "original_filename": "Planter (10).jpeg",
+    "image_path": "/images/Planter (10).jpeg",
+    "description": "This stunning black bowl brings an exquisite, artisanal elegance to any home.",
+    "technical_specs": { "height": "6.8\"", "width": "13.8\"" }
+  },
+  {
+    "id": "PL-CL-EE-011",
+    "name": "Earth & Ember",
+    "original_filename": "Planter (11).jpeg",
+    "image_path": "/images/Planter (11).jpeg",
+    "description": "Experience the unique, hand-finished texture, a stunning piece that brings organic, artistic elegance to any space.",
+    "technical_specs": { "height": "7.5\"" }
+  },
+  {
+    "id": "PL-CL-GL-013",
+    "name": "Golden Lattice Planter",
+    "original_filename": "Planter (12).jpeg",
+    "image_path": "/images/Planter (12).jpeg",
+    "description": "Elevate your greenery with the striking design of our handcrafted clay planter, a perfect blend of modern geometry and timeless elegance.",
+    "technical_specs": { "height": "9.1\"" }
+  },
+  {
+    "id": "PL-CL-MB-014",
+    "name": "Mosaic Bloom",
+    "original_filename": "Planter (13).jpeg",
+    "image_path": "/images/Planter (13).jpeg",
+    "description": "Infuse your space with captivating artistry; this unique clay planter, adorned with a shimmering mosaic, brings a touch of modern elegance to any plant display.",
+    "technical_specs": { "height": "8\"" }
+  },
+  {
+    "id": "PL-CL-GL-015",
+    "name": "Space Planter",
+    "original_filename": "Planter (14).jpeg",
+    "image_path": "/images/Planter (14).jpeg",
+    "description": "Bring a touch of timeless elegance and charm with this unique handcrafted clay planter.",
+    "technical_specs": { "height": "9.1\"" }
+  },
+  {
+    "id": "PL-CL-EXTRA",
+    "name": "Terracotta Planter",
+    "original_filename": "Planter.jpeg",
+    "image_path": "/images/Planter.jpeg",
+    "description": "A beautifully handcrafted terracotta planter, shaped with care to bring natural warmth and organic elegance to any indoor or outdoor setting.",
+    "technical_specs": {}
+  }
+]
