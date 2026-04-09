@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Leaf, Flame, Eye, Mail, Instagram, MessageCircle } from "lucide-react";
+import { Variants } from 'framer-motion';
 
 const sections = [
   {
@@ -38,7 +39,7 @@ const containerVariants = {
 const itemVariants = {
   hidden: { opacity: 0, y: 28 },
   show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: "easeOut" } },
-};
+} as const;
 
 export default function AboutPage() {
   return (
