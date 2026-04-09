@@ -17,12 +17,12 @@ function buildWhatsAppLink(items: { name: string; quantity: number; price: numbe
   return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
 }
 
-function buildMailtoLink(items: { name: string; quantity: number; price: number }[], total: number) {
+function buildGmailLink(items: { name: string; quantity: number; price: number }[], total: number) {
   const lines = items
     .map((i) => `- ${i.name} x${i.quantity}  PKR ${(i.price * i.quantity).toLocaleString()}`)
     .join("\n");
   const body = `Hello Lumberwiz,\n\nI'd like to place the following order:\n\n${lines}\n\nTotal: PKR ${total.toLocaleString()}\n\nPlease confirm availability. Thank you!`;
-  return `mailto:${EMAIL}?subject=${encodeURIComponent("New Order")}&body=${encodeURIComponent(body)}`;
+  return `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(EMAIL)}&su=${encodeURIComponent("New Order")}&body=${encodeURIComponent(body)}`;
 }
 
 export default function CartDrawer() {
@@ -49,8 +49,8 @@ export default function CartDrawer() {
     {
       icon: Mail,
       label: "Order via Email",
-      sublabel: "Opens your mail app",
-      href: () => buildMailtoLink(items, totalPrice),
+      sublabel: "Opens Gmail in browser",
+      href: () => buildGmailLink(items, totalPrice),
       color: "text-blue-500",
       bg: "hover:bg-blue-50 dark:hover:bg-blue-950/30",
     },
