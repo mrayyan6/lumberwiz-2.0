@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const WA_NUMBER = "923005963639";
 const IG_URL = "https://instagram.com/lumberwiz";
-const EMAIL = "lumberwiz@gmail.com";
+const EMAIL = "LumberWiz.creations@gmail.com";
 
 function buildWhatsAppLink(items: { name: string; quantity: number; price: number }[], total: number) {
   const lines = items

@@ -136,11 +136,11 @@ export default function AboutPage() {
 
           <div className="space-y-4">
             <a
-              href="mailto:lumberwiz@gmail.com"
+              href="mailto:LumberWiz.creations@gmail.com"
               className="flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-secondary/40"
             >
               <Mail className="h-5 w-5 shrink-0 text-primary" />
-              <span className="text-sm text-foreground">lumberwiz@gmail.com</span>
+              <span className="text-sm text-foreground">LumberWiz.creations@gmail.com</span>
             </a>
 
             <a
