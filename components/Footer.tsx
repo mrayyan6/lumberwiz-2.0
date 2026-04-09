@@ -37,7 +37,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h4 className="font-display text-sm font-semibold text-foreground">Contact</h4>
-            <p className="mt-3 text-sm text-muted-foreground">info@lumberwiz.com</p>
+            <p className="mt-3 text-sm text-muted-foreground">lumberwiz@gmail.com</p>
           </div>
         </div>
 

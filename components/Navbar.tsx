@@ -36,7 +36,7 @@ export default function Navbar() {
           <img
             src="/images/logo.jpeg"
             alt="LumberWiz"
-            className="h-10 w-10 rounded-md border border-border object-contain transition-transform duration-300 group-hover:scale-105"
+            className="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-105"
           />
           <span className="font-display text-xl font-bold text-foreground">LumberWiz</span>
         </Link>

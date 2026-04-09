@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Leaf, Flame, Eye } from "lucide-react";
+import { Leaf, Flame, Eye, Mail, Instagram, MessageCircle } from "lucide-react";
 
 const sections = [
   {
@@ -80,7 +80,7 @@ export default function AboutPage() {
       </section>
 
       {/* Sections */}
-      <div className="container mx-auto max-w-3xl px-4 py-16">
+      <div className="container mx-auto max-w-3xl px-4 py-16 pb-0">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -115,6 +115,55 @@ export default function AboutPage() {
             </motion.section>
           ))}
         </motion.div>
+      </div>
+      {/* Contact */}
+      <div className="container mx-auto max-w-3xl px-4 py-16">
+        <motion.section
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65 }}
+          className="group relative rounded-2xl border border-border bg-card p-8 shadow-sm"
+        >
+          <div className="absolute left-0 top-6 bottom-6 w-1 rounded-r-full bg-primary/30" />
+
+          <div className="flex items-center gap-3 mb-6">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <MessageCircle className="h-5 w-5" />
+            </div>
+            <h2 className="font-display text-2xl font-bold text-foreground">Get in Touch</h2>
+          </div>
+
+          <div className="space-y-4">
+            <a
+              href="mailto:lumberwiz@gmail.com"
+              className="flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-secondary/40"
+            >
+              <Mail className="h-5 w-5 shrink-0 text-primary" />
+              <span className="text-sm text-foreground">lumberwiz@gmail.com</span>
+            </a>
+
+            <a
+              href="https://instagram.com/lumberwiz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-secondary/40"
+            >
+              <Instagram className="h-5 w-5 shrink-0 text-primary" />
+              <span className="text-sm text-foreground">@lumberwiz</span>
+            </a>
+
+            <a
+              href="https://wa.me/923005963639"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-secondary/40"
+            >
+              <MessageCircle className="h-5 w-5 shrink-0 text-primary" />
+              <span className="text-sm text-foreground">+923005963639</span>
+            </a>
+          </div>
+        </motion.section>
       </div>
     </div>
   );
