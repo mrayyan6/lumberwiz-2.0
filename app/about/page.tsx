@@ -137,7 +137,9 @@ export default function AboutPage() {
 
           <div className="space-y-4">
             <a
-              href="mailto:LumberWiz.creations@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=LumberWiz.creations@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-secondary/40"
             >
               <Mail className="h-5 w-5 shrink-0 text-primary" />
