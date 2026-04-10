@@ -53,7 +53,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 24 }}
             transition={{ duration: 0.28, ease: "easeOut" }}
-            className="fixed inset-x-4 top-1/2 z-50 mx-auto max-w-2xl -translate-y-1/2 overflow-hidden rounded-2xl bg-card shadow-2xl"
+            className="fixed inset-x-4 top-[5vh] z-50 mx-auto max-w-2xl max-h-[90vh] overflow-hidden rounded-2xl bg-card shadow-2xl md:top-1/2 md:-translate-y-1/2 md:max-h-none"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
@@ -64,7 +64,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
               <X className="h-4 w-4" />
             </button>
 
-            <div className="flex flex-col sm:flex-row">
+            <div className="product-modal-body flex flex-col sm:flex-row">
               {/* Image */}
               <div className="relative w-full shrink-0 overflow-hidden bg-secondary/20 sm:w-56">
                 <img

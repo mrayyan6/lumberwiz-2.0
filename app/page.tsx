@@ -265,10 +265,10 @@ export default function Index() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
-              className="relative flex-1"
+              className="relative flex-1 brand-story-image-wrapper"
               style={{ perspective: "900px" }}
             >
-              <div className="relative h-[360px] md:h-[380px]">
+              <div className="relative h-[360px] md:h-[380px] brand-story-image-container">
                 {/* Back card */}
                 <motion.div
                   initial={{ rotateY: -8, rotateX: 4 }}
@@ -277,7 +277,7 @@ export default function Index() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.9, ease: "easeOut" }}
                   style={{ transformStyle: "preserve-3d" }}
-                  className="absolute left-8 top-8 h-full w-[85%] overflow-hidden rounded-2xl shadow-2xl"
+                  className="absolute left-8 top-8 h-full w-[85%] overflow-hidden rounded-2xl shadow-2xl brand-story-back-card"
                 >
                   {categoryPreviews[1]?.image && (
                     <img
@@ -297,7 +297,7 @@ export default function Index() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
                   style={{ transformStyle: "preserve-3d" }}
-                  className="absolute bottom-4 right-4 h-36 w-36 overflow-hidden rounded-xl border-4 border-background shadow-xl md:-bottom-6 md:-right-2 md:h-52 md:w-52"
+                  className="absolute bottom-4 right-4 h-36 w-36 overflow-hidden rounded-xl border-4 border-background shadow-xl md:-bottom-6 md:-right-2 md:h-52 md:w-52 brand-story-front-card"
                 >
                   {categoryPreviews[0]?.image && (
                     <img
