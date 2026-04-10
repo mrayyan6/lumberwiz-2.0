@@ -17,7 +17,15 @@ export default function ProductCard({
 }) {
   const { addToCart } = useCart();
   const [imgError, setImgError] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const touchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleTouchStart = () => {
+    if (touchTimer.current) clearTimeout(touchTimer.current);
+    setIsTouched(true);
+    touchTimer.current = setTimeout(() => setIsTouched(false), 600);
+  };
 
   // 3D tilt springs
   const x = useMotionValue(0);
@@ -45,26 +53,27 @@ export default function ProductCard({
       transition={{ duration: 0.4, delay: index * 0.05 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
       onClick={() => onCardClick?.(product)}
       style={{ rotateX, rotateY, transformPerspective: 800 }}
-      className="group relative cursor-pointer overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-xl"
+      className={`group relative cursor-pointer overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-xl${isTouched ? " is-touched" : ""}`}
     >
       <div className="relative aspect-square overflow-hidden">
         <img
           src={imgError ? "/placeholder.svg" : product.image}
           alt={product.name}
           onError={() => setImgError(true)}
-          className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-110"
+          className="product-card-image h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 group-active:scale-110"
         />
         {/* Hover overlay */}
-        <div className="absolute inset-0 bg-foreground/0 transition-colors duration-300 group-hover:bg-foreground/18" />
+        <div className="product-card-overlay absolute inset-0 bg-foreground/0 transition-colors duration-300 group-hover:bg-foreground/[0.18] group-active:bg-foreground/[0.18]" />
 
         {/* Add to cart button */}
         <motion.button
           onClick={(e) => { e.stopPropagation(); addToCart(product); }}
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.9 }}
-          className="absolute bottom-3 right-3 rounded-full bg-primary p-2.5 text-primary-foreground opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100"
+          className="absolute bottom-3 right-3 rounded-full bg-primary p-2.5 text-primary-foreground shadow-lg transition-opacity duration-300 group-hover:opacity-100 group-active:opacity-100 md:opacity-0"
         >
           <ShoppingCart className="h-4 w-4" />
         </motion.button>
@@ -76,7 +85,7 @@ export default function ProductCard({
       </div>
 
       {/* Bottom glow on hover */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <div className="product-card-glow pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-active:opacity-100" />
     </motion.div>
   );
 }

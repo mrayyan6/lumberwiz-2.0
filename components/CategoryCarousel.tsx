@@ -133,7 +133,7 @@ export default function CategoryCarousel({ items }: CategoryCarouselProps) {
       ─────────────────────────────────────────────────────────────────── */}
       <div
         className="relative mx-auto h-[280px] cursor-grab overflow-hidden active:cursor-grabbing sm:h-[330px] md:h-[370px]"
-        style={{ perspective: "1200px" }}
+        style={{ perspective: "1200px", touchAction: "pan-y" }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}

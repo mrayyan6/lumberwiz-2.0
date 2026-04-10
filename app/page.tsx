@@ -268,7 +268,7 @@ export default function Index() {
               className="relative flex-1"
               style={{ perspective: "900px" }}
             >
-              <div className="relative h-[320px] md:h-[380px]">
+              <div className="relative h-[360px] md:h-[380px]">
                 {/* Back card */}
                 <motion.div
                   initial={{ rotateY: -8, rotateX: 4 }}
@@ -297,7 +297,7 @@ export default function Index() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
                   style={{ transformStyle: "preserve-3d" }}
-                  className="absolute -bottom-6 -right-2 h-44 w-44 overflow-hidden rounded-xl border-4 border-background shadow-xl md:h-52 md:w-52"
+                  className="absolute bottom-4 right-4 h-36 w-36 overflow-hidden rounded-xl border-4 border-background shadow-xl md:-bottom-6 md:-right-2 md:h-52 md:w-52"
                 >
                   {categoryPreviews[0]?.image && (
                     <img

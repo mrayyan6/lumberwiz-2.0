@@ -81,6 +81,19 @@
   }
 }
 
+/* ── Mobile: product card tap feedback (mirrors desktop hover) ── */
+@media (max-width: 767px) {
+  .is-touched .product-card-image {
+    transform: scale(1.1);
+  }
+  .is-touched .product-card-overlay {
+    background-color: hsl(var(--foreground) / 0.18) !important;
+  }
+  .is-touched .product-card-glow {
+    opacity: 1 !important;
+  }
+}
+
 /* Swiper pagination – brand colors */
 .swiper-pagination-bullet {
   background: hsl(var(--muted-foreground)) !important;
