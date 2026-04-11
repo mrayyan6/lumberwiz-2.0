@@ -6,7 +6,9 @@
       "Bash(ls:*)",
       "Bash(npx tsc:*)",
       "Bash(node -e ':*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(node:*)",
+      "Bash(npm install:*)"
     ]
   }
 }

@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { X, Plus, Minus, Trash2, Send, MessageCircle, Instagram, Mail } from "lucide-react";
+import { useState, useEffect } from "react";
+import { X, Plus, Minus, Trash2, Send, MessageCircle, Instagram, Mail, LogIn } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { createClient } from "@/lib/supabase-browser";
+import Link from "next/link";
+import type { User } from "@supabase/supabase-js";
 
 const WA_NUMBER = "923005963639";
 const IG_URL = "https://instagram.com/lumberwiz";
@@ -28,6 +31,29 @@ function buildGmailLink(items: { name: string; quantity: number; price: number }
 export default function CartDrawer() {
   const { items, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, totalPrice, clearCart } = useCart();
   const [shareOpen, setShareOpen] = useState(false);
+  const [loginPromptOpen, setLoginPromptOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const supabase = createClient();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  function handlePlaceOrder() {
+    if (!user) {
+      setLoginPromptOpen(true);
+      return;
+    }
+    setShareOpen((v) => !v);
+  }
 
   const orderOptions = [
     {
@@ -68,7 +94,7 @@ export default function CartDrawer() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22 }}
             className="fixed inset-0 z-50 bg-foreground/40 backdrop-blur-sm"
-            onClick={() => { setIsCartOpen(false); setShareOpen(false); }}
+            onClick={() => { setIsCartOpen(false); setShareOpen(false); setLoginPromptOpen(false); }}
           />
 
           {/* Drawer */}
@@ -84,7 +110,7 @@ export default function CartDrawer() {
             <div className="flex items-center justify-between border-b border-border p-4">
               <h2 className="font-display text-lg font-semibold text-foreground">Your Cart</h2>
               <motion.button
-                onClick={() => { setIsCartOpen(false); setShareOpen(false); }}
+                onClick={() => { setIsCartOpen(false); setShareOpen(false); setLoginPromptOpen(false); }}
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
                 transition={{ duration: 0.2 }}
@@ -123,7 +149,7 @@ export default function CartDrawer() {
                       className="flex gap-3 rounded-xl border border-border bg-card p-3"
                     >
                       <img
-                        src={item.image}
+                        src={item.image_url ?? "/placeholder.svg"}
                         alt={item.name}
                         className="h-16 w-16 rounded-lg object-cover"
                       />
@@ -171,18 +197,45 @@ export default function CartDrawer() {
                   <span>PKR {totalPrice.toLocaleString()}</span>
                 </div>
 
-                {/* Place Order button + share panel */}
+                {/* Place Order button + panels */}
                 <div className="relative">
                   <motion.button
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => setShareOpen((v) => !v)}
+                    onClick={handlePlaceOrder}
                     className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-3 text-sm font-semibold text-primary-foreground shadow-md transition-colors hover:bg-primary/90"
                   >
                     <Send className="h-4 w-4" />
                     Place Order
                   </motion.button>
 
+                  {/* Login prompt panel */}
+                  <AnimatePresence>
+                    {loginPromptOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.97 }}
+                        transition={{ duration: 0.18 }}
+                        className="absolute bottom-full left-0 right-0 mb-2 overflow-hidden rounded-xl border border-border bg-card shadow-xl"
+                      >
+                        <div className="px-4 py-4 text-center">
+                          <p className="text-sm font-semibold text-foreground">Please log in to place your order</p>
+                          <p className="mt-1 text-xs text-muted-foreground">Create a free account or sign in to continue.</p>
+                          <Link
+                            href="/login"
+                            onClick={() => { setIsCartOpen(false); setLoginPromptOpen(false); }}
+                            className="mt-3 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                          >
+                            <LogIn className="h-4 w-4" />
+                            Log In / Sign Up
+                          </Link>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Order options panel */}
                   <AnimatePresence>
                     {shareOpen && (
                       <motion.div

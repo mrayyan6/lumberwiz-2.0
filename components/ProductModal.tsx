@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Ruler } from "lucide-react";
 import { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
+import { useAdmin } from "@/context/AdminContext";
 
 interface ProductModalProps {
   product: Product | null;
@@ -13,6 +14,7 @@ interface ProductModalProps {
 
 export default function ProductModal({ product, onClose }: ProductModalProps) {
   const { addToCart } = useCart();
+  const { isAdmin } = useAdmin();
 
   useEffect(() => {
     if (!product) return;
@@ -30,6 +32,9 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
   const specs = product?.technical_specs
     ? Object.entries(product.technical_specs)
     : [];
+
+  const soldOut = !product?.in_inventory || !product?.image_url;
+  const imgSrc = product?.image_url ?? "/placeholder.svg";
 
   return (
     <AnimatePresence>
@@ -68,10 +73,15 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
               {/* Image */}
               <div className="relative w-full shrink-0 overflow-hidden bg-secondary/20 sm:w-56">
                 <img
-                  src={product.image}
+                  src={imgSrc}
                   alt={product.name}
-                  className="h-56 w-full object-contain sm:h-full"
+                  className={`h-56 w-full object-contain sm:h-full ${soldOut ? "opacity-60 grayscale" : ""}`}
                 />
+                {soldOut && (
+                  <div className="absolute left-3 top-3 rounded-md bg-muted px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    Sold Out
+                  </div>
+                )}
               </div>
 
               {/* Details */}
@@ -118,15 +128,21 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                   </div>
                 )}
 
-                <button
-                  onClick={() => {
-                    addToCart(product);
-                    onClose();
-                  }}
-                  className="mt-auto rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0"
-                >
-                  Add to Cart
-                </button>
+                {isAdmin ? null : soldOut ? (
+                  <div className="mt-auto rounded-lg border border-border bg-muted px-6 py-2.5 text-center text-sm font-semibold text-muted-foreground">
+                    Sold Out
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      addToCart(product);
+                      onClose();
+                    }}
+                    className="mt-auto rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0"
+                  >
+                    Add to Cart
+                  </button>
+                )}
               </div>
             </div>
           </motion.div>

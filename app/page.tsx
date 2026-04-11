@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ShoppingBag, Leaf, Sparkles, Star, ChevronDown } from "lucide-react";
@@ -9,8 +9,16 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import CategoryCarousel from "@/components/CategoryCarousel";
-import { categories, getProductsByCategory } from "@/data/products";
-import { Variants } from 'framer-motion';
+import { fetchAllProducts } from "@/lib/products";
+import type { Product } from "@/data/products";
+
+const categories = [
+  "Desktop Planters",
+  "Terracotta Lamps",
+  "Marble Lamps",
+  "Terracotta Planters",
+  "Terracotta Vase",
+];
 
 const testimonials = [
   {
@@ -73,6 +81,12 @@ export default function Index() {
   const blobX = useSpring(mouseX, { stiffness: 28, damping: 22 });
   const blobY = useSpring(mouseY, { stiffness: 28, damping: 22 });
 
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    fetchAllProducts().then(setAllProducts);
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (!heroRef.current) return;
     const rect = heroRef.current.getBoundingClientRect();
@@ -81,9 +95,11 @@ export default function Index() {
   };
 
   const categoryPreviews = categories.map((cat) => {
-    const products = getProductsByCategory(cat);
-    return { name: cat, image: products[0]?.image, count: products.length };
+    const products = allProducts.filter((p) => p.category === cat);
+    return { name: cat, image: products[0]?.image_url ?? undefined, count: products.length };
   });
+
+  const firstCategory = categories[0];
 
   return (
     <div>
@@ -153,7 +169,7 @@ export default function Index() {
             {/* CTAs */}
             <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center gap-4">
               <Link
-                href={`/category/${encodeURIComponent(categories[0])}`}
+                href={firstCategory ? `/category/${encodeURIComponent(firstCategory)}` : "/"}
                 className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-primary-foreground px-8 py-3.5 text-sm font-semibold text-primary shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,0,0,0.22)]"
               >
                 <ShoppingBag className="h-4 w-4" />

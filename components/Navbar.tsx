@@ -1,28 +1,80 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, X } from "lucide-react";
+import { ShoppingCart, Menu, X, User, LogOut, LayoutDashboard, Plus } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useAdmin } from "@/context/AdminContext";
 import { useState, useEffect } from "react";
-import { categories } from "@/data/products";
 import { motion, AnimatePresence } from "framer-motion";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  ...categories.map((cat) => ({ href: `/category/${encodeURIComponent(cat)}`, label: cat })),
-  { href: "/about", label: "About" },
-];
+import { createClient } from "@/lib/supabase-browser";
+import { fetchCategories } from "@/lib/products";
+import { useRouter } from "next/navigation";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 export default function Navbar() {
   const { totalItems, setIsCartOpen } = useCart();
+  const { isAdmin, openAdd } = useAdmin();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
+  const [profileName, setProfileName] = useState<string | null>(null);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [navCategories, setNavCategories] = useState<string[]>([]);
+  const router = useRouter();
+  const supabase = createClient();
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 24);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Fetch categories for nav links
+  useEffect(() => {
+    fetchCategories().then(setNavCategories);
+  }, []);
+
+  // Fetch session + profile name on mount
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      if (session?.user) fetchProfile(session.user.id);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      if (session?.user) {
+        fetchProfile(session.user.id);
+      } else {
+        setProfileName(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  async function fetchProfile(userId: string) {
+    const { data } = await supabase
+      .from("profiles")
+      .select("name")
+      .eq("id", userId)
+      .single();
+    if (data) setProfileName(data.name || null);
+  }
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    setUserMenuOpen(false);
+    router.refresh();
+  }
+
+  const displayName = profileName || user?.email?.split("@")[0] || "Account";
+
+  const navLinks = [
+    { href: "/", label: "Home" },
+    ...navCategories.map((cat) => ({ href: `/category/${encodeURIComponent(cat)}`, label: cat })),
+    { href: "/about", label: "About" },
+  ];
 
   return (
     <nav
@@ -36,6 +88,7 @@ export default function Navbar() {
           <img
             src="/images/logo.jpeg"
             alt="LumberWiz"
+            onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; }}
             className="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-105"
           />
           <span className="font-display text-xl font-bold text-foreground">LumberWiz</span>
@@ -58,6 +111,69 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Auth button */}
+          {user ? (
+            <div className="relative">
+              <motion.button
+                onClick={() => setUserMenuOpen((v) => !v)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="hidden md:flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+              >
+                <User className="h-4 w-4 text-primary" />
+                <span className="max-w-[120px] truncate">{displayName}</span>
+              </motion.button>
+
+              <AnimatePresence>
+                {userMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 top-full mt-2 w-48 overflow-hidden rounded-xl border border-border bg-card shadow-xl"
+                  >
+                    {isAdmin && (
+                      <>
+                        <Link
+                          href="/admin"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground transition-colors hover:bg-secondary"
+                        >
+                          <LayoutDashboard className="h-4 w-4 text-primary" />
+                          Admin Dashboard
+                        </Link>
+                        <button
+                          onClick={() => { openAdd(); setUserMenuOpen(false); }}
+                          className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-foreground transition-colors hover:bg-secondary"
+                        >
+                          <Plus className="h-4 w-4 text-primary" />
+                          Add Product
+                        </button>
+                        <div className="mx-4 border-t border-border" />
+                      </>
+                    )}
+                    <button
+                      onClick={handleLogout}
+                      className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-foreground transition-colors hover:bg-secondary"
+                    >
+                      <LogOut className="h-4 w-4 text-muted-foreground" />
+                      Log Out
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="hidden md:inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+            >
+              <User className="h-4 w-4" />
+              Login
+            </Link>
+          )}
+
           {/* Cart button */}
           <motion.button
             onClick={() => setIsCartOpen(true)}
@@ -103,7 +219,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu — animated slide-down */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -139,6 +255,54 @@ export default function Navbar() {
                   </Link>
                 </motion.div>
               ))}
+
+              {/* Mobile auth */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, x: -14 },
+                  show: { opacity: 1, x: 0, transition: { duration: 0.22 } },
+                }}
+                className="mt-2 border-t border-border pt-3"
+              >
+                {user ? (
+                  <div className="space-y-1">
+                    <p className="py-1 text-xs text-muted-foreground">
+                      Signed in as <span className="font-semibold text-foreground">{displayName}</span>
+                    </p>
+                    {isAdmin && (
+                      <>
+                        <Link
+                          href="/admin"
+                          onClick={() => setMenuOpen(false)}
+                          className="block py-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+                        >
+                          Admin Dashboard
+                        </Link>
+                        <button
+                          onClick={() => { openAdd(); setMenuOpen(false); }}
+                          className="block py-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+                        >
+                          Add Product
+                        </button>
+                      </>
+                    )}
+                    <button
+                      onClick={() => { handleLogout(); setMenuOpen(false); }}
+                      className="block py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      Log Out
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    href="/login"
+                    onClick={() => setMenuOpen(false)}
+                    className="block py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    Login / Sign Up
+                  </Link>
+                )}
+              </motion.div>
             </motion.div>
           </motion.div>
         )}
