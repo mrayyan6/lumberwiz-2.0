@@ -84,7 +84,7 @@ export default function LoginPage() {
     const userId = data.user?.id;
 
     if (userId) {
-      const { error: profileError } = await supabase.from("profiles").insert({
+      const { error: profileError } = await supabase.from("profiles").upsert({
         id: userId,
         name: signupName,
         address: signupAddress,
