@@ -22,6 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
+      <head>  
+        <meta name="google-site-verification" content="HJ9vp2izNyjR5mc781pci2SPA6r52AkT3f6R4Jt-Z5Q" />
+      </head>
       <body>
         <Providers>
           <Navbar />
