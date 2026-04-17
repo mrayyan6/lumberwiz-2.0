@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { Eye, EyeOff } from "lucide-react";
 import { createClient } from "@/lib/supabase-browser";
 
 type Tab = "login" | "signup";
@@ -16,6 +17,7 @@ export default function LoginPage() {
   // Login fields
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [loginShowPassword, setLoginShowPassword] = useState(false);
 
   // Signup fields
   const [signupName, setSignupName] = useState("");
@@ -23,6 +25,7 @@ export default function LoginPage() {
   const [signupPassword, setSignupPassword] = useState("");
   const [signupAddress, setSignupAddress] = useState("");
   const [signupPhone, setSignupPhone] = useState("");
+  const [signupShowPassword, setSignupShowPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -63,6 +66,12 @@ export default function LoginPage() {
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+
+    if (!signupAddress.trim() || !signupPhone.trim()) {
+      setError("Please fill in your address and phone number.");
+      return;
+    }
+
     setLoading(true);
 
     const { data, error: signUpError } = await supabase.auth.signUp({
@@ -190,14 +199,24 @@ export default function LoginPage() {
                   <label className="mb-1 block text-xs font-medium text-muted-foreground">
                     Password
                   </label>
-                  <input
-                    type="password"
-                    required
-                    value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                    placeholder="••••••••"
-                  />
+                  <div className="relative">
+                    <input
+                      type={loginShowPassword ? "text" : "password"}
+                      required
+                      value={loginPassword}
+                      onChange={(e) => setLoginPassword(e.target.value)}
+                      className="w-full rounded-lg border border-border bg-background px-3 py-2.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                      placeholder="••••••••"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setLoginShowPassword((v) => !v)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      tabIndex={-1}
+                    >
+                      {loginShowPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
                 </div>
 
                 <button
@@ -261,15 +280,25 @@ export default function LoginPage() {
                   <label className="mb-1 block text-xs font-medium text-muted-foreground">
                     Password
                   </label>
-                  <input
-                    type="password"
-                    required
-                    minLength={6}
-                    value={signupPassword}
-                    onChange={(e) => setSignupPassword(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                    placeholder="At least 6 characters"
-                  />
+                  <div className="relative">
+                    <input
+                      type={signupShowPassword ? "text" : "password"}
+                      required
+                      minLength={6}
+                      value={signupPassword}
+                      onChange={(e) => setSignupPassword(e.target.value)}
+                      className="w-full rounded-lg border border-border bg-background px-3 py-2.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                      placeholder="At least 6 characters"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setSignupShowPassword((v) => !v)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      tabIndex={-1}
+                    >
+                      {signupShowPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
                 </div>
 
                 <div>
@@ -278,10 +307,11 @@ export default function LoginPage() {
                   </label>
                   <input
                     type="text"
+                    required
                     value={signupAddress}
                     onChange={(e) => setSignupAddress(e.target.value)}
                     className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                    placeholder="Delivery address (optional)"
+                    placeholder="Delivery address"
                   />
                 </div>
 
@@ -291,10 +321,11 @@ export default function LoginPage() {
                   </label>
                   <input
                     type="tel"
+                    required
                     value={signupPhone}
                     onChange={(e) => setSignupPhone(e.target.value)}
                     className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                    placeholder="Phone number (optional)"
+                    placeholder="Phone number"
                   />
                 </div>
 

@@ -9,7 +9,10 @@
       "Bash(wc:*)",
       "Bash(node:*)",
       "Bash(npm install:*)",
-      "Bash(npx next:*)"
+      "Bash(npx next:*)",
+      "Skill(update-config)",
+      "Bash(xargs grep:*)",
+      "Bash(grep -oP \"async function pn8\\\\\\(q,K,_\\\\\\)\\\\{[^}]{0,300}\" \"C:/Users/rayya/AppData/Local/nvm/v24.11.0/node_modules/@anthropic-ai/claude-code/cli.js\")"
     ]
   }
 }

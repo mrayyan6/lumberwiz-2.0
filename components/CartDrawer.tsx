@@ -12,26 +12,17 @@ const WA_NUMBER = "923005963639";
 const IG_URL = "https://instagram.com/lumberwiz";
 const EMAIL = "LumberWiz.creations@gmail.com";
 
-function buildWhatsAppLink(items: { name: string; quantity: number; price: number }[], total: number) {
-  const lines = items
-    .map((i) => `• ${i.name} × ${i.quantity} — PKR ${(i.price * i.quantity).toLocaleString()}`)
-    .join("\n");
-  const msg = `Hello Lumberwiz! I'd like to place an order:\n${lines}\nTotal: PKR ${total.toLocaleString()}`;
-  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
-}
-
-function buildGmailLink(items: { name: string; quantity: number; price: number }[], total: number) {
-  const lines = items
-    .map((i) => `- ${i.name} x${i.quantity}  PKR ${(i.price * i.quantity).toLocaleString()}`)
-    .join("\n");
-  const body = `Hello Lumberwiz,\n\nI'd like to place the following order:\n\n${lines}\n\nTotal: PKR ${total.toLocaleString()}\n\nPlease confirm availability. Thank you!`;
-  return `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(EMAIL)}&su=${encodeURIComponent("New Order")}&body=${encodeURIComponent(body)}`;
-}
-
 export default function CartDrawer() {
   const { items, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, totalPrice, clearCart } = useCart();
   const [shareOpen, setShareOpen] = useState(false);
   const [loginPromptOpen, setLoginPromptOpen] = useState(false);
+  const [paymentOpen, setPaymentOpen] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<"cod" | "bank_transfer" | null>(null);
+  const [sessionProfile, setSessionProfile] = useState({ name: "", phone: "", address: "" });
+  const [editDetailsOpen, setEditDetailsOpen] = useState(false);
+  const [editName, setEditName] = useState("");
+  const [editPhone, setEditPhone] = useState("");
+  const [editAddress, setEditAddress] = useState("");
   const [user, setUser] = useState<User | null>(null);
   const supabase = createClient();
 
@@ -47,20 +38,86 @@ export default function CartDrawer() {
     return () => subscription.unsubscribe();
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      supabase
+        .from("profiles")
+        .select("name, phone, address")
+        .eq("id", user.id)
+        .single()
+        .then(({ data }) => {
+          if (data) {
+            setSessionProfile({
+              name: data.name || "",
+              phone: data.phone || "",
+              address: data.address || "",
+            });
+          }
+        });
+    }
+  }, [user]);
+
+  function buildOrderMessage(method: "cod" | "bank_transfer") {
+    const paymentLabel = method === "cod" ? "Cash on Delivery (COD)" : "Bank Transfer";
+    const lines = items
+      .map((i) => `${i.name} - Qty: ${i.quantity}`)
+      .join("\n\n");
+    return (
+      `Hello Lumberwiz! I'd like to place an order:\n\n` +
+      `Name: ${sessionProfile.name}\n\n` +
+      `Phone: ${sessionProfile.phone}\n\n` +
+      `Address: ${sessionProfile.address}\n\n` +
+      `Order Details:\n\n${lines}\n\n` +
+      `Payment Method: ${paymentLabel}`
+    );
+  }
+
+  function closeAll() {
+    setIsCartOpen(false);
+    setShareOpen(false);
+    setLoginPromptOpen(false);
+    setPaymentOpen(false);
+    setEditDetailsOpen(false);
+  }
+
   function handlePlaceOrder() {
     if (!user) {
       setLoginPromptOpen(true);
       return;
     }
-    setShareOpen((v) => !v);
+    setPaymentMethod(null);
+    setEditDetailsOpen(false);
+    setPaymentOpen(true);
   }
 
-  const orderOptions = [
+  function handleOpenEditDetails() {
+    setEditName(sessionProfile.name);
+    setEditPhone(sessionProfile.phone);
+    setEditAddress(sessionProfile.address);
+    setEditDetailsOpen(true);
+  }
+
+  function handleSaveDetails() {
+    setSessionProfile({ name: editName, phone: editPhone, address: editAddress });
+    setEditDetailsOpen(false);
+  }
+
+  function handleContinueToOrder() {
+    if (!paymentMethod) return;
+    setPaymentOpen(false);
+    setShareOpen(true);
+  }
+
+  const orderActions = [
     {
       icon: MessageCircle,
       label: "Order via WhatsApp",
       sublabel: "Opens pre-filled message",
-      href: () => buildWhatsAppLink(items, totalPrice),
+      onClick: () => {
+        const msg = buildOrderMessage(paymentMethod!);
+        window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+        setShareOpen(false);
+      },
       color: "text-green-600",
       bg: "hover:bg-green-50 dark:hover:bg-green-950/30",
     },
@@ -68,7 +125,13 @@ export default function CartDrawer() {
       icon: Instagram,
       label: "Order via Instagram",
       sublabel: "DM us @lumberwiz",
-      href: () => IG_URL,
+      onClick: () => {
+        if (paymentMethod === "bank_transfer") {
+          alert("Please send your order details along with payment screenshot if paying via Bank Transfer");
+        }
+        window.open(IG_URL, "_blank");
+        setShareOpen(false);
+      },
       color: "text-pink-500",
       bg: "hover:bg-pink-50 dark:hover:bg-pink-950/30",
     },
@@ -76,7 +139,15 @@ export default function CartDrawer() {
       icon: Mail,
       label: "Order via Email",
       sublabel: "Opens Gmail in browser",
-      href: () => buildGmailLink(items, totalPrice),
+      onClick: () => {
+        const body = buildOrderMessage(paymentMethod!);
+        const subject = `New Order - ${sessionProfile.name}`;
+        window.open(
+          `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(EMAIL)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
+          "_blank"
+        );
+        setShareOpen(false);
+      },
       color: "text-blue-500",
       bg: "hover:bg-blue-50 dark:hover:bg-blue-950/30",
     },
@@ -94,7 +165,7 @@ export default function CartDrawer() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22 }}
             className="fixed inset-0 z-50 bg-foreground/40 backdrop-blur-sm"
-            onClick={() => { setIsCartOpen(false); setShareOpen(false); setLoginPromptOpen(false); }}
+            onClick={closeAll}
           />
 
           {/* Drawer */}
@@ -110,7 +181,7 @@ export default function CartDrawer() {
             <div className="flex items-center justify-between border-b border-border p-4">
               <h2 className="font-display text-lg font-semibold text-foreground">Your Cart</h2>
               <motion.button
-                onClick={() => { setIsCartOpen(false); setShareOpen(false); setLoginPromptOpen(false); }}
+                onClick={closeAll}
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
                 transition={{ duration: 0.2 }}
@@ -235,6 +306,125 @@ export default function CartDrawer() {
                     )}
                   </AnimatePresence>
 
+                  {/* Payment method panel */}
+                  <AnimatePresence>
+                    {paymentOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.97 }}
+                        transition={{ duration: 0.18 }}
+                        className="absolute bottom-full left-0 right-0 mb-2 overflow-hidden rounded-xl border border-border bg-card shadow-xl"
+                      >
+                        <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
+                          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                            Payment Method
+                          </p>
+                          <button
+                            onClick={handleOpenEditDetails}
+                            className="text-xs font-medium text-primary hover:underline"
+                          >
+                            Edit Details
+                          </button>
+                        </div>
+
+                        {/* Edit details inline form */}
+                        <AnimatePresence>
+                          {editDetailsOpen && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.18 }}
+                              className="overflow-hidden border-b border-border"
+                            >
+                              <div className="space-y-2 px-4 py-3">
+                                <p className="text-xs font-semibold text-foreground">Edit your details</p>
+                                <input
+                                  type="text"
+                                  value={editName}
+                                  onChange={(e) => setEditName(e.target.value)}
+                                  placeholder="Name"
+                                  className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                                />
+                                <input
+                                  type="tel"
+                                  value={editPhone}
+                                  onChange={(e) => setEditPhone(e.target.value)}
+                                  placeholder="Phone"
+                                  className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                                />
+                                <input
+                                  type="text"
+                                  value={editAddress}
+                                  onChange={(e) => setEditAddress(e.target.value)}
+                                  placeholder="Address"
+                                  className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                                />
+                                <div className="flex gap-2">
+                                  <button
+                                    onClick={handleSaveDetails}
+                                    className="flex-1 rounded-lg bg-primary py-2 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                                  >
+                                    Save
+                                  </button>
+                                  <button
+                                    onClick={() => setEditDetailsOpen(false)}
+                                    className="flex-1 rounded-lg border border-border py-2 text-xs font-semibold text-foreground transition-colors hover:bg-muted"
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
+                        {/* Radio options */}
+                        <div className="space-y-1 px-4 py-3">
+                          <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-border px-3 py-2.5 transition-colors hover:bg-muted/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+                            <input
+                              type="radio"
+                              name="paymentMethod"
+                              value="cod"
+                              checked={paymentMethod === "cod"}
+                              onChange={() => setPaymentMethod("cod")}
+                              className="accent-primary"
+                            />
+                            <div>
+                              <p className="text-sm font-medium text-foreground">Cash on Delivery</p>
+                              <p className="text-xs text-muted-foreground">Pay when you receive your order</p>
+                            </div>
+                          </label>
+                          <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-border px-3 py-2.5 transition-colors hover:bg-muted/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+                            <input
+                              type="radio"
+                              name="paymentMethod"
+                              value="bank_transfer"
+                              checked={paymentMethod === "bank_transfer"}
+                              onChange={() => setPaymentMethod("bank_transfer")}
+                              className="accent-primary"
+                            />
+                            <div>
+                              <p className="text-sm font-medium text-foreground">Bank Transfer</p>
+                              <p className="text-xs text-muted-foreground">Send payment screenshot after ordering</p>
+                            </div>
+                          </label>
+                        </div>
+
+                        <div className="px-4 pb-3">
+                          <button
+                            onClick={handleContinueToOrder}
+                            disabled={!paymentMethod}
+                            className="w-full rounded-lg bg-primary py-2.5 text-sm font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+                          >
+                            Continue
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
                   {/* Order options panel */}
                   <AnimatePresence>
                     {shareOpen && (
@@ -248,21 +438,18 @@ export default function CartDrawer() {
                         <p className="border-b border-border px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                           Choose how to order
                         </p>
-                        {orderOptions.map(({ icon: Icon, label, sublabel, href, color, bg }) => (
-                          <a
+                        {orderActions.map(({ icon: Icon, label, sublabel, onClick, color, bg }) => (
+                          <button
                             key={label}
-                            href={href()}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => setShareOpen(false)}
-                            className={`flex items-center gap-3 px-4 py-3 transition-colors ${bg}`}
+                            onClick={onClick}
+                            className={`flex w-full items-center gap-3 px-4 py-3 transition-colors ${bg}`}
                           >
                             <Icon className={`h-5 w-5 shrink-0 ${color}`} />
-                            <div>
+                            <div className="text-left">
                               <p className="text-sm font-medium text-foreground">{label}</p>
                               <p className="text-xs text-muted-foreground">{sublabel}</p>
                             </div>
-                          </a>
+                          </button>
                         ))}
                       </motion.div>
                     )}
