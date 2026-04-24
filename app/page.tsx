@@ -3,9 +3,9 @@ import { createServerSupabaseClient } from "@/lib/supabase-server";
 import HomePageClient from "@/components/HomePageClient";
 
 export const metadata: Metadata = {
-  title: "Lumberwiz — Premium Timber & Wood Products",
+  title: "Lumberwiz — Terracotta Planters & Marble Decor | Home & Garden Pakistan",
   description:
-    "Browse Lumberwiz's collection of premium timber, wood panels, and lumber products. Quality wood for construction, furniture, and more.",
+    "Shop terracotta planters, marble decor, pots, vases, and home accessories at Lumberwiz. Perfect for indoor & outdoor decoration in Pakistan. Durable, handcrafted, and stylish designs.",
 };
 
 const categories = [

@@ -12,7 +12,10 @@
       "Bash(npx next:*)",
       "Skill(update-config)",
       "Bash(xargs grep:*)",
-      "Bash(grep -oP \"async function pn8\\\\\\(q,K,_\\\\\\)\\\\{[^}]{0,300}\" \"C:/Users/rayya/AppData/Local/nvm/v24.11.0/node_modules/@anthropic-ai/claude-code/cli.js\")"
+      "Bash(grep -oP \"async function pn8\\\\\\(q,K,_\\\\\\)\\\\{[^}]{0,300}\" \"C:/Users/rayya/AppData/Local/nvm/v24.11.0/node_modules/@anthropic-ai/claude-code/cli.js\")",
+      "WebSearch",
+      "Bash(graphify install *)",
+      "Bash(C:/Users/rayya/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0/LocalCache/local-packages/Python313/Scripts/graphify.exe claude *)"
     ]
   }
 }
