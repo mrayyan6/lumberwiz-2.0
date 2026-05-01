@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, X, User, LogOut, LayoutDashboard, Plus } from "lucide-react";
+import { ShoppingCart, Menu, X, User, LogOut, LayoutDashboard, Plus, ChevronDown } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useAdmin } from "@/context/AdminContext";
 import { useState, useEffect } from "react";
@@ -70,11 +70,17 @@ export default function Navbar() {
 
   const displayName = profileName || user?.email?.split("@")[0] || "Account";
 
-  const navLinks = [
+  const mobileNavLinks = [
     { href: "/", label: "Home" },
     ...navCategories.map((cat) => ({ href: `/category/${encodeURIComponent(cat)}`, label: cat })),
     { href: "/about", label: "About" },
   ];
+
+  const desktopLinkClass =
+    "relative pb-0.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground " +
+    "after:absolute after:bottom-0 after:left-0 after:h-px after:w-full " +
+    "after:origin-left after:scale-x-0 after:bg-foreground " +
+    "after:transition-transform after:duration-300 hover:after:scale-x-100";
 
   return (
     <nav
@@ -96,18 +102,35 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden items-center gap-6 md:flex">
-          {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="relative pb-0.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground
-                after:absolute after:bottom-0 after:left-0 after:h-px after:w-full
-                after:origin-left after:scale-x-0 after:bg-foreground
-                after:transition-transform after:duration-300 hover:after:scale-x-100"
-            >
-              {label}
+          <Link href="/" className={desktopLinkClass}>Home</Link>
+
+          {navCategories.length > 0 && navCategories.length < 6 && navCategories.map((cat) => (
+            <Link key={cat} href={`/category/${encodeURIComponent(cat)}`} className={desktopLinkClass}>
+              {cat}
             </Link>
           ))}
+
+          {navCategories.length >= 6 && (
+            <div className="group relative">
+              <button className={`${desktopLinkClass} flex items-center gap-1`}>
+                Categories
+                <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180" />
+              </button>
+              <div className="absolute left-0 top-full z-50 mt-2 hidden w-52 overflow-hidden rounded-xl border border-border bg-card shadow-xl group-hover:block">
+                {navCategories.map((cat) => (
+                  <Link
+                    key={cat}
+                    href={`/category/${encodeURIComponent(cat)}`}
+                    className="block px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                  >
+                    {cat}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <Link href="/about" className={desktopLinkClass}>About</Link>
         </div>
 
         <div className="flex items-center gap-2">
@@ -238,7 +261,7 @@ export default function Navbar() {
               animate="show"
               className="flex flex-col gap-1 px-4 py-4"
             >
-              {navLinks.map(({ href, label }) => (
+              {mobileNavLinks.map(({ href, label }) => (
                 <motion.div
                   key={href}
                   variants={{

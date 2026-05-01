@@ -331,7 +331,7 @@ export default function HomePageClient({ categoryPreviews }: HomePageClientProps
               Shop by Category
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-muted-foreground sm:text-base">
-              Swipe to explore our five signature collections. The centered category is highlighted for quick browsing.
+              {`Swipe to explore our ${categoryPreviews.length} signature collection${categoryPreviews.length !== 1 ? "s" : ""}. The centered category is highlighted for quick browsing.`}
             </p>
             <CategoryCarousel items={categoryPreviews} />
           </motion.div>

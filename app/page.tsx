@@ -8,14 +8,6 @@ export const metadata: Metadata = {
     "Shop terracotta planters, marble decor, pots, vases, and home accessories at Lumberwiz. Perfect for indoor & outdoor decoration in Pakistan. Durable, handcrafted, and stylish designs.",
 };
 
-const categories = [
-  "Desktop Planters",
-  "Terracotta Lamps",
-  "Marble Lamps",
-  "Terracotta Planters",
-  "Terracotta Vase",
-];
-
 type CategoryPreview = {
   name: string;
   image?: string;
@@ -50,14 +42,19 @@ async function fetchProductsForHome(): Promise<ProductRow[]> {
 export default async function Index() {
   const allProducts = await fetchProductsForHome();
 
-  const categoryPreviews: CategoryPreview[] = categories.map((cat) => {
-    const products = allProducts.filter((p) => p.category === cat);
-    return {
-      name: cat,
-      image: products[0]?.image_url ?? undefined,
-      count: products.length,
-    };
-  });
+  const categoryMap = new Map<string, CategoryPreview>();
+  for (const p of allProducts) {
+    const cat = p.category?.trim();
+    if (!cat) continue;
+    if (!categoryMap.has(cat)) {
+      categoryMap.set(cat, { name: cat, image: p.image_url ?? undefined, count: 1 });
+    } else {
+      categoryMap.get(cat)!.count++;
+    }
+  }
+  const categoryPreviews = [...categoryMap.values()].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
 
   return <HomePageClient categoryPreviews={categoryPreviews} />;
 }

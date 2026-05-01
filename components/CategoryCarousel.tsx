@@ -25,11 +25,12 @@ const SLOT = {
 
 type SlotKey = keyof typeof SLOT;
 
-function getSlotKey(index: number, center: number, total: number): SlotKey {
+function getSlotInfo(index: number, center: number, total: number): { slotKey: SlotKey; hidden: boolean } {
   let diff = ((index - center) % total + total) % total;
   if (diff > Math.floor(total / 2)) diff -= total;
+  const hidden = Math.abs(diff) > 2;
   const clamped = Math.max(-2, Math.min(2, diff));
-  return String(clamped) as SlotKey;
+  return { slotKey: String(clamped) as SlotKey, hidden };
 }
 
 const SPRING = {
@@ -104,16 +105,16 @@ export default function CategoryCarousel({ items }: CategoryCarouselProps) {
       >
         <div className="absolute inset-0 grid place-items-center">
           {items.map((item, i) => {
-            const slotKey = getSlotKey(i, centerIndex, n);
+            const { slotKey, hidden } = getSlotInfo(i, centerIndex, n);
             const { x, scale, zIndex, opacity, rotateY } = SLOT[slotKey];
             const isCenter = slotKey === "0";
 
             return (
               <motion.div
                 key={item.name}
-                animate={{ x, scale, opacity, rotateY }}
+                animate={{ x, scale, opacity: hidden ? 0 : opacity, rotateY }}
                 transition={SPRING}
-                style={{ zIndex, position: "absolute" }}
+                style={{ zIndex, position: "absolute", pointerEvents: hidden ? "none" : "auto" }}
                 className="w-[200px] sm:w-[238px] md:w-[265px]"
                 onClick={() => {
                   if (didDrag.current) {
