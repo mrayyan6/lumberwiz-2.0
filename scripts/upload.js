@@ -5,7 +5,7 @@
 // Products with a matching local image → in_inventory=true, image_url=public URL
 // Products without a local image       → in_inventory=false, image_url=null
 
-//require("dotenv").config({ path: ".env.local" });
+require("dotenv").config({ path: ".env.local" });
 
 const fs   = require("fs");
 const path = require("path");
