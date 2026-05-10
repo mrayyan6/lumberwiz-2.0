@@ -31,11 +31,16 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // If user is already logged in, redirect home
+  // If user is already logged in, redirect home.
+  // Also surface the ?reset=success param from /reset-password redirect.
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) router.replace("/");
     });
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("reset") === "success") {
+      setSuccess("Password updated successfully. Please log in with your new password.");
+    }
   }, []);
 
   async function handleLogin(e: React.FormEvent) {
@@ -217,6 +222,15 @@ export default function LoginPage() {
                       {loginShowPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
+                </div>
+
+                <div className="flex justify-end">
+                  <a
+                    href="/forgot-password"
+                    className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    Forgot password?
+                  </a>
                 </div>
 
                 <button
