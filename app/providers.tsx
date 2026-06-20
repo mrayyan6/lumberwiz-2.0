@@ -8,6 +8,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { CartProvider } from "@/context/CartContext";
 import { AdminProvider } from "@/context/AdminContext";
 import AdminProductModal from "@/components/AdminProductModal";
+import SessionTimeout from "@/components/SessionTimeout";
 
 export default function Providers({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -17,6 +18,7 @@ export default function Providers({ children }: { children: ReactNode }) {
       <TooltipProvider>
         <AdminProvider>
           <CartProvider>
+            <SessionTimeout />
             <AdminProductModal />
             <Toaster />
             <Sonner />

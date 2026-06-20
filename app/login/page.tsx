@@ -88,7 +88,9 @@ export default function LoginPage() {
       setLoading(false);
       if (signUpError.message.toLowerCase().includes("already registered") ||
           signUpError.message.toLowerCase().includes("user already exists")) {
-        setError("An account with this email already exists. Please log in.");
+        // Generic message — do NOT confirm whether the email is already registered
+        // (prevents user enumeration).
+        setError("If this email isn't already registered, check your inbox to confirm your account.");
       } else {
         setError(signUpError.message);
       }

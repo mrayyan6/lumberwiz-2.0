@@ -1,20 +1,5 @@
 "use client";
 
-/*
- * WRITE A REVIEW — /reviews/new
- *
- * Flow:
- *   1. Gate: must be logged in. If not → redirect to /login.
- *   2. Step "pick": choose a product (searchable grid, live from Supabase).
- *   3. Step "form": star rating + name + comment.
- *   4. Submit → POST /api/reviews (validated server-side; user_id from session).
- *   5. Step "done": success state with "write another" / "go home".
- *
- * Validation is enforced on BOTH sides:
- *   - client: rating 1-5, comment >= 10 chars, name present (this file)
- *   - server: identical checks in app/api/reviews/route.ts
- */
-
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -68,6 +53,8 @@ export default function WriteReviewPage() {
       const { data } = await supabase
         .from("products")
         .select("id, name, image_url, category")
+        .not("image_url", "is", null)
+        .neq("image_url", "")
         .order("name");
       setProducts((data ?? []) as PickerProduct[]);
       setStep("pick");
