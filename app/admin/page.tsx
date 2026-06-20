@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Pencil, Trash2, X, Check, ImageIcon, ToggleLeft, ToggleRight } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Check, ImageIcon, ToggleLeft, ToggleRight, Star } from "lucide-react";
 import { createClient } from "@/lib/supabase-browser";
 
 interface ProductRow {
@@ -252,13 +253,22 @@ export default function AdminPage() {
           <h1 className="font-display text-3xl font-bold text-foreground">Admin Dashboard</h1>
           <p className="mt-1 text-sm text-muted-foreground">{products.length} products</p>
         </div>
-        <button
-          onClick={() => { setAddOpen(true); setAddError(""); }}
-          className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-md transition-colors hover:bg-primary/90"
-        >
-          <Plus className="h-4 w-4" />
-          Add Product
-        </button>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/admin/reviews"
+            className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
+          >
+            <Star className="h-4 w-4 text-primary" />
+            Manage Reviews
+          </Link>
+          <button
+            onClick={() => { setAddOpen(true); setAddError(""); }}
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-md transition-colors hover:bg-primary/90"
+          >
+            <Plus className="h-4 w-4" />
+            Add Product
+          </button>
+        </div>
       </div>
 
       {/* Add Product Modal */}

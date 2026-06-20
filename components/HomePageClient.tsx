@@ -3,12 +3,14 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { ShoppingBag, Leaf, Sparkles, Star, ChevronDown } from "lucide-react";
+import { ShoppingBag, Leaf, Sparkles, ChevronDown } from "lucide-react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import CategoryCarousel from "@/components/CategoryCarousel";
+import StarRating from "@/components/StarRating";
+import type { HomeReview } from "@/app/page";
 
 type CategoryPreview = {
   name: string;
@@ -18,34 +20,8 @@ type CategoryPreview = {
 
 interface HomePageClientProps {
   categoryPreviews: CategoryPreview[];
+  reviews: HomeReview[];
 }
-
-const testimonials = [
-  {
-    name: "Aisha K.",
-    location: "Lahore",
-    text: "The terracotta planter is absolutely stunning. It's become the centerpiece of my living room and everyone who visits asks about it.",
-    rating: 5,
-  },
-  {
-    name: "Omar S.",
-    location: "Karachi",
-    text: "Exceptional quality and craftsmanship. The marble lamp casts the most beautiful warm light in the evening.",
-    rating: 5,
-  },
-  {
-    name: "Fatima R.",
-    location: "Islamabad",
-    text: "I ordered three desktop planters and they arrived perfectly packaged. The earthy tones are even more beautiful in person.",
-    rating: 5,
-  },
-  {
-    name: "Zaid M.",
-    location: "Peshawar",
-    text: "LumberWiz completely transformed my workspace. The attention to detail in each piece is remarkable.",
-    rating: 5,
-  },
-];
 
 const features = [
   {
@@ -74,7 +50,7 @@ const itemVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 } as const;
 
-export default function HomePageClient({ categoryPreviews }: HomePageClientProps) {
+export default function HomePageClient({ categoryPreviews, reviews }: HomePageClientProps) {
   const heroRef = useRef<HTMLElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -338,71 +314,71 @@ export default function HomePageClient({ categoryPreviews }: HomePageClientProps
         </div>
       </section>
 
-      {/* ── Testimonials ── */}
-      <section className="bg-secondary/30 py-20">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.55 }}
-            className="text-center"
-          >
-            <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
-              What Our Customers Say
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
-              Real stories from people who brought LumberWiz into their homes.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.25, duration: 0.55 }}
-            className="mt-10"
-          >
-            <Swiper
-              modules={[Autoplay, Pagination]}
-              autoplay={{ delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true }}
-              pagination={{ clickable: true }}
-              loop={true}
-              slidesPerView={1}
-              spaceBetween={24}
-              breakpoints={{
-                768: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-              }}
-              className="!pb-12"
+      {/* ── Testimonials (live from Supabase `reviews`) ── */}
+      {reviews.length > 0 && (
+        <section className="bg-secondary/30 py-20">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.55 }}
+              className="text-center"
             >
-              {testimonials.map((t, i) => (
-                <SwiperSlide key={i} className="h-auto">
-                  <div className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-sm">
-                    <div className="mb-3 flex gap-1">
-                      {Array.from({ length: t.rating }).map((_, si) => (
-                        <Star key={si} className="h-4 w-4 fill-primary text-primary" />
-                      ))}
-                    </div>
-                    <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
-                      &ldquo;{t.text}&rdquo;
-                    </p>
-                    <div className="mt-5 flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
-                        {t.name[0]}
+              <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
+                What Our Customers Say
+              </h2>
+              <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
+                Real stories from people who brought LumberWiz into their homes.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.25, duration: 0.55 }}
+              className="mt-10"
+            >
+              <Swiper
+                modules={[Autoplay, Pagination]}
+                autoplay={{ delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                pagination={{ clickable: true }}
+                loop={reviews.length > 1}
+                slidesPerView={1}
+                spaceBetween={24}
+                breakpoints={{
+                  768: { slidesPerView: 2 },
+                  1024: { slidesPerView: 3 },
+                }}
+                className="!pb-12"
+              >
+                {reviews.map((r) => (
+                  <SwiperSlide key={r.id} className="h-auto">
+                    <div className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-sm">
+                      <div className="mb-3">
+                        <StarRating rating={r.rating} size="sm" animated />
                       </div>
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">{t.name}</p>
-                        <p className="text-xs text-muted-foreground">{t.location}</p>
+                      <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
+                        &ldquo;{r.comment}&rdquo;
+                      </p>
+                      <div className="mt-5 flex items-center gap-3">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
+                          {r.customer_name?.[0]?.toUpperCase() ?? "?"}
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-foreground">{r.customer_name}</p>
+                          <p className="text-xs text-muted-foreground">on {r.category}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </motion.div>
-        </div>
-      </section>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </motion.div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

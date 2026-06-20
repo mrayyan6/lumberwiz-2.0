@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, X, User, LogOut, LayoutDashboard, Plus, ChevronDown } from "lucide-react";
+import { ShoppingCart, Menu, X, User, LogOut, LayoutDashboard, Plus, ChevronDown, Star } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useAdmin } from "@/context/AdminContext";
 import { useState, useEffect } from "react";
@@ -176,6 +176,15 @@ export default function Navbar() {
                         <div className="mx-4 border-t border-border" />
                       </>
                     )}
+                    <Link
+                      href="/reviews/new"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground transition-colors hover:bg-secondary"
+                    >
+                      <Star className="h-4 w-4 text-primary" />
+                      Write a Review
+                    </Link>
+                    <div className="mx-4 border-t border-border" />
                     <button
                       onClick={handleLogout}
                       className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-foreground transition-colors hover:bg-secondary"
@@ -309,6 +318,13 @@ export default function Navbar() {
                         </button>
                       </>
                     )}
+                    <Link
+                      href="/reviews/new"
+                      onClick={() => setMenuOpen(false)}
+                      className="block py-2 text-sm font-medium text-foreground transition-colors hover:text-primary"
+                    >
+                      Write a Review
+                    </Link>
                     <button
                       onClick={() => { handleLogout(); setMenuOpen(false); }}
                       className="block py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
